@@ -36,11 +36,14 @@ namespace Treehouse.FitnessFrog.Spa.Controllers
 
         public IHttpActionResult Post(EntryDto entry)
         {
+
+            ValidateEntry(entry);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            
             var entryModel = entry.ToModel();
 
             _entriesRepository.Add(entryModel);
@@ -52,14 +55,34 @@ namespace Treehouse.FitnessFrog.Spa.Controllers
                 entry);
         }
 
-        public void Put(int id, Entry entry)
+        public IHttpActionResult Put(int id, EntryDto entry)
         {
-            _entriesRepository.Update(entry);
+            ValidateEntry(entry);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+
+
+            _entriesRepository.Update(entry.ToModel());
+
+            return StatusCode(System.Net.HttpStatusCode.NoContent);
         }
 
         public void Delete(int id)
         {
             _entriesRepository.Delete(id);
+        }
+
+        private void ValidateEntry(EntryDto entry)
+        {
+            if (ModelState.IsValidField("Duration") && entry.Duration <= 0)
+            {
+                ModelState.AddModelError("entry.Duration",
+                    "The Duration field must be greater than zero.");
+            }
         }
     }
 }
