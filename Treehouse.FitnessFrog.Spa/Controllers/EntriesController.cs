@@ -16,9 +16,10 @@ namespace Treehouse.FitnessFrog.Spa.Controllers
             _entriesRepository = entriesRepository;
         }
 
-        public IEnumerable<Entry> Get()
+        public IHttpActionResult Get()
         {
-            return _entriesRepository.GetList();
+            return Ok(_entriesRepository.GetList());
+            
         }
 
         public IHttpActionResult Get(int id)
