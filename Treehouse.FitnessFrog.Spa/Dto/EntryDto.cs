@@ -27,7 +27,7 @@ namespace Treehouse.FitnessFrog.Spa.Dto
         [MaxLength(200, ErrorMessage = "The Notes field cannot be longer than 200 characters.")]
         public string Notes { get; set; }
 
-        public Entry ToModel ()
+        public Entry ToModel()
         {
             return new Entry()
             {
@@ -40,6 +40,5 @@ namespace Treehouse.FitnessFrog.Spa.Dto
                 Notes = Notes
             };
         }
-
     }
 }

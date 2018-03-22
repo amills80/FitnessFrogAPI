@@ -64,8 +64,6 @@ namespace Treehouse.FitnessFrog.Spa.Controllers
                 return BadRequest(ModelState);
             }
             
-
-
             _entriesRepository.Update(entry.ToModel());
 
             return StatusCode(System.Net.HttpStatusCode.NoContent);
